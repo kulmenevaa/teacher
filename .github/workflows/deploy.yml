@@ -14,9 +14,6 @@ jobs:
         with:
           php-version: "8.4"
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - uses: mirromutth/mysql-action@v1.1
         with:
           mysql database: testing
