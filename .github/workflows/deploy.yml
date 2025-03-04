@@ -78,7 +78,7 @@ jobs:
         if: ${{ success() }}
         uses: appleboy/ssh-action@v1.2.1
         with:
-           host: ${{ secrets.SSH_HOST }}
-           username: ${{ secrets.SSH_USERNAME }}
-           password: ${{ secrets.SSH_PASSWORD }}
+           host: '5.101.152.71'
+           username: 'andrevk9_ssh'
+           password: '7&iKpldjdwYh'
            server-dir: public_html/
