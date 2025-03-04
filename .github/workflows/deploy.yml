@@ -73,7 +73,7 @@ jobs:
 
       - name: Validate Format code
         run: ./vendor/bin/pint
-        
+
       - name: Deploy to Server
         if: ${{ success() }}
         uses: appleboy/ssh-action@v1.2.1
@@ -83,10 +83,10 @@ jobs:
            password: ${{ secrets.SSH_PASSWORD }}
            script_stop: true
            script: |
-             cd apps/laravel
+             cd backend/application
              php artisan down
              git pull
-             npm ci
+             npm i
              npm run build
              composer i --no-interaction -q --no-progress
              php artisan migrate --force
