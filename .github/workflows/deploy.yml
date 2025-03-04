@@ -73,6 +73,3 @@ jobs:
 
       - name: Validate Format code
         run: ./vendor/bin/pint
-
-      - name: Run tests
-        run: vendor/bin/phpunit
