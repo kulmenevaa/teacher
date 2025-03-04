@@ -81,14 +81,3 @@ jobs:
            host: ${{ secrets.SSH_HOST }}
            username: ${{ secrets.SSH_USERNAME }}
            password: ${{ secrets.SSH_PASSWORD }}
-           script_stop: true
-           script: |
-             cd backend/application
-             php artisan down
-             git pull
-             npm i
-             npm run build
-             composer i --no-interaction -q --no-progress
-             php artisan migrate --force
-             php artisan optimize
-             php artisan up
