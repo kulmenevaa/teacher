@@ -81,4 +81,4 @@ jobs:
            host: '5.101.152.71'
            username: 'andrevk9_ssh'
            password: '7&iKpldjdwYh'
-           server-dir: /~/
+           server-dir: /andrevk9.beget.tech
