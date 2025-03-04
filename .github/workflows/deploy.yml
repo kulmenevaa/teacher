@@ -81,4 +81,4 @@ jobs:
            host: '5.101.152.71'
            username: 'andrevk9_ssh'
            password: '7&iKpldjdwYh'
-           server-dir: public_html/
+           server-dir: /~/
