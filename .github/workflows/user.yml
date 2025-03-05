@@ -20,4 +20,16 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
-          script: "./scripts/deploy.sh"
+          script: |
+            cd andrevk9.beget.tech/public_html
+            git reset --hard HEAD  
+            git clean -df
+            git pull origin main
+            cd backend/user
+            composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+            cp .env.example .env
+            php artisan optimize
+            cat .env
+            chmod -R 777 storage bootstrap/cache
+            php artisan key:generate
+            ls
