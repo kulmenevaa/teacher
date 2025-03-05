@@ -26,8 +26,8 @@ services:
         STAGE: user
     volumes:
       - .:/var/www/html
-    depends_on:
-      - user-mysql
+    #depends_on:
+      #- user-mysql
     networks:
       - user
 
