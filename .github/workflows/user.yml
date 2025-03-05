@@ -28,6 +28,7 @@ jobs:
 
       - name: Build Docker Images
         run: |
+          cd andrevk9.beget.tech/public_html
           docker-compose -f docker-compose.yml build
 
       - name: Push Images
@@ -35,6 +36,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
         run: |
+          cd andrevk9.beget.tech/public_html
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           docker-compose -f docker-compose.yml push
 
