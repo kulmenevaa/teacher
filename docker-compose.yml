@@ -27,23 +27,23 @@ services:
     networks:
       - user
 
-  user-mysql:
-    extends:
-      file: backend/user/docker-compose.yml
-      service: user-mysql
-    networks:
-      - user
+  # user-mysql:
+  #   extends:
+  #     file: backend/user/docker-compose.yml
+  #     service: user-mysql
+  #   networks:
+  #     - user
 
-  user-phpmyadmin:
-    extends:
-      file: backend/user/docker-compose.yml
-      service: user-phpmyadmin
-    networks:
-      - user
+  # user-phpmyadmin:
+  #   extends:
+  #     file: backend/user/docker-compose.yml
+  #     service: user-phpmyadmin
+  #   networks:
+  #     - user
 
-volumes:
-  user-mysql-data:
-  user-mysql-logs:
+#volumes:
+  #user-mysql-data:
+  #user-mysql-logs:
 networks:
   user: {}
   #frontend: {}
