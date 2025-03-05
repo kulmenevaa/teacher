@@ -19,7 +19,7 @@ jobs:
         working-directory: backend/user
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Setup PHP with composer v2
         uses: shivammathur/setup-php@v2
