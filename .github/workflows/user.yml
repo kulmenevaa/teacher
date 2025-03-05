@@ -42,7 +42,7 @@ jobs:
           php artisan key:generate
 
       - name: Composer Lint
-        run: ./vendor/bin/phplint --no-cache
+        run: vendor/bin/phplint --no-cache
 
       - name: Composer Audit
         run: composer audit
