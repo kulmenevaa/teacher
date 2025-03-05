@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend/application
+        working-directory: backend/user
     env:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: laravel
