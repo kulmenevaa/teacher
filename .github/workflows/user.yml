@@ -61,7 +61,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             cd andrevk9.beget.tech/public_html/backend/user
-            cp env.example .env
+            cp .env.example .env
             cat .env
             git reset --hard HEAD  
             git clean -df
