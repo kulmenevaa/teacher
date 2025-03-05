@@ -36,7 +36,7 @@ jobs:
         run: tar -czvf composer.tgz vendor/
 
       - name: Upload composer assets
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@latest
         with:
           name: composer
           path: composer.tgz
@@ -56,7 +56,7 @@ jobs:
         run: tar -czvf node_modules.tgz node_modules/
 
       - name: Upload node_modules assets
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@latest
         with:
           name: node_modules
           path: node_modules.tgz
@@ -86,7 +86,7 @@ jobs:
         run: tar -czvf public.tgz public/
 
       - name: Upload public assets
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@latest
         with:
           name: public
           path: public.tgz
