@@ -26,32 +26,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      - name: Build Docker Images
-        run: docker-compose build
-
-      - name: Push Docker Images
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: user/repo:latest
-
-      - name: Run Docker Compose
-        run: docker-compose up -d
-
-
   deploy:
     needs: push
     name: Deployment
@@ -69,6 +43,5 @@ jobs:
             git clean -df
             git pull origin main
             ls
-            docker-compose pull
-            docker-compose down
-            docker-compose up -d
+            sudo docker-compose down
+            sudo docker-compose -f docker-compose.yml up -d --build
