@@ -47,12 +47,13 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd andrevk9.beget.tech/public_html/backend/user
+            cd andrevk9.beget.tech/public_html
+            git reset --hard HEAD  
+            git clean -df
+            git pull origin main
+            cd backend/user
             cp .env.example .env
             cat .env
             chmod -R 777 storage bootstrap/cache
             php artisan key:generate
-            git reset --hard HEAD  
-            git clean -df
-            git pull origin main
             ls
