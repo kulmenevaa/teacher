@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/user
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -64,6 +67,9 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/user
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
