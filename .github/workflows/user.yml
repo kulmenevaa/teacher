@@ -41,11 +41,4 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
-          script: |
-            cd andrevk9.beget.tech/public_html
-            git reset --hard HEAD  
-            git clean -df
-            git pull origin main
-            ls
-            docker-compose down
-            docker-compose -f docker-compose.yml up -d --build
+          script: "cd andrevk9.beget.tech/public_html && ./.scripts/deploy.sh"
