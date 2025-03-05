@@ -38,10 +38,6 @@ jobs:
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Key generate
-        run: |
-          php artisan key:generate
-
   deploy:
     needs: push
     name: Deployment
@@ -56,6 +52,7 @@ jobs:
           script: |
             cd andrevk9.beget.tech/public_html
             cp .env.example .env 
+            php artisan key:generate
             git reset --hard HEAD  
             git clean -df
             git pull origin main
