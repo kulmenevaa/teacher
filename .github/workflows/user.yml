@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd andrevk9.beget.tech/public_html
+            cd domains/a1097389.xsph.ru/public_html
             git reset --hard HEAD  
             git clean -df
             git pull origin main
