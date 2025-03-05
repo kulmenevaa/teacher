@@ -26,6 +26,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Global Setup
+        run: |
+          cp .env.example .env
+
   deploy:
     needs: push
     name: Deployment
