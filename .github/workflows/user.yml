@@ -26,19 +26,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Docker Images
-        run: |
-          cd andrevk9.beget.tech/public_html
-          docker-compose -f docker-compose.yml build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      - name: Push Images
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-        run: |
-          cd andrevk9.beget.tech/public_html
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker-compose -f docker-compose.yml push
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Build Docker Images
+        run: docker-compose build
+
+      - name: Push Docker Images
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: user/repo:latest
+
+      - name: Run Docker Compose
+        run: docker-compose up -d
+
 
   deploy:
     needs: push
