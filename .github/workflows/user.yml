@@ -27,9 +27,8 @@ jobs:
             git pull origin main
             cd backend/user
             ls
-            composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+            ./composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
             cp .env.example .env
             php artisan optimize
             chmod -R 777 storage bootstrap/cache
             php artisan key:generate
-            ls
