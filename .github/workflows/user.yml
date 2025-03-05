@@ -28,9 +28,14 @@ jobs:
       - name: Install Dependencies
         run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
-      - name: Setup Laravel
+      - name: Setup Environment File
         run: |
           cp .env.example .env
+          sed -i 's/APP_ENV=/APP_ENV=local/g' .env
+          sed -i 's/CACHE_STORE=/CACHE_STORE=file/g' .env
+
+      - name: Setup Laravel
+        run: |
           php artisan config:clear
           php artisan cache:clear
           php artisan key:generate
