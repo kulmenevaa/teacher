@@ -26,7 +26,7 @@ jobs:
             git clean -df
             git pull origin main
             cd backend/user
-            composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+            composer install
             cp .env.example .env
             php artisan optimize
             cat .env
