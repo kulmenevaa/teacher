@@ -26,9 +26,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -58,6 +55,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             cd andrevk9.beget.tech/public_html
+            cp .env.example .env 
             git reset --hard HEAD  
             git clean -df
             git pull origin main
