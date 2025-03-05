@@ -93,7 +93,7 @@ jobs:
           retention-days: 3
 
   deploy:
-    needs: push
+    needs: ['build_assets']
     name: Deployment
     runs-on: ubuntu-latest
     steps:
