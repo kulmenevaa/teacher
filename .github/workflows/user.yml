@@ -31,8 +31,8 @@ jobs:
       - name: Setup Environment File
         run: |
           cp .env.example .env
-          sed -i 's/APP_ENV=/APP_ENV=local/g' .env
-          sed -i 's/CACHE_STORE=file/g' .env
+          sed -i 's/APP_ENV=root/APP_ENV=local/g' .env
+          sed -i 's/CACHE_STORE=/=file/g' .env
           cat .env
 
       - name: Setup Laravel
