@@ -10,8 +10,8 @@ services:
     volumes:
       - ./public:/var/www/html/public
       - ./storage:/var/www/html/storage
-    depends_on:
-      - user-api
+    #depends_on:
+      #- user-api
     environment:
       - API_SERVICE_NAME=user-api
     networks:
