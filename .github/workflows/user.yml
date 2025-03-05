@@ -28,10 +28,10 @@ jobs:
             git pull origin main
             cd backend/user
             ls
-            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-            php composer-setup.php
+            /opt/alt/php82/usr/bin/php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            /opt/alt/php82/usr/bin/php composer-setup.php
             ./composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --ignore-platform-reqs
             cp .env.example .env
-            php artisan optimize
+            /opt/alt/php82/usr/bin/php artisan optimize
             chmod -R 777 storage bootstrap/cache
-            php artisan key:generate
+            /opt/alt/php82/usr/bin/php artisan key:generate
