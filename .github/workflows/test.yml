@@ -1,42 +1,88 @@
-name: TEST
+name: Deployment
 
 on:
   push:
-    branches:
-      - main
-      - develop
+    branches: [ dev ]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [ master ]
 
-env:
-  file_name: artifact_body.txt
-  path: ./
-  artifact_name: artifact_1
-      
+  workflow_dispatch:
+
 jobs:
-  create_artifact:
+  composer:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Create artifact data
-        run:
-          echo "This is body of artifact_1." > ${{ env.path }}${{ env.file_name }}
-      - name: Save Artifact
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer:v2
+
+      - name: Install composer packages
+        run: |
+          php -v
+          composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+      - name: 'Compress composer folder'
+        run: tar -czvf composer.tgz vendor/
+
+      - name: Upload composer assets
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.artifact_name }}
-          path: ${{ env.path }}${{ env.file_name }}
+          name: composer
+          path: composer.tgz
+          retention-days: 3
 
-  read_artifact:
-    needs: create_artifact 
+  npm:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Download artifact
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: npm install
+        run: |
+          npm --version
+          npm install
+      - name: 'Compress node_modules folder'
+        run: tar -czvf node_modules.tgz node_modules/
+
+      - name: Upload node_modules assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: node_modules
+          path: node_modules.tgz
+          retention-days: 3
+
+  build_assets:
+    runs-on: ubuntu-latest
+    needs: [composer, npm]
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Download npm artifacts
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.artifact_name }}
-          path: ${{ env.path }}
-      - name: Read artifact
-        run:
-          echo "${{ env.artifact_name }}:" && cat ${{ env.path }}${{ env.file_name }}
+          name: node_modules
+
+      - name: Unpack artifacts
+        run: |
+          tar xvfz node_modules.tgz
+      - name: npm install
+        run: |
+          npm --version
+          npm run production
+      - name: 'Compress public folder'
+        run: tar -czvf public.tgz public/
+
+      - name: Upload public assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public.tgz
+          retention-days: 3
