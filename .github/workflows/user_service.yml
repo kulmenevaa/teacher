@@ -90,7 +90,7 @@ jobs:
       - name: Npm install
         run: |
           npm --version
-          npm run production
+          npm run build
       - name: 'Compress public folder'
         run: tar -czvf public.tgz public/
 
