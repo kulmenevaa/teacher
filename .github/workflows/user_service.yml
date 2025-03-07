@@ -72,5 +72,3 @@ jobs:
             cd backend/user
             chmod -R 777 storage bootstrap/cache
             cp .env.example .env
-            php artisan optimize
-            php artisan key:generate
