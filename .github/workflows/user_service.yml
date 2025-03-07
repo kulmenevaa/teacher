@@ -33,14 +33,11 @@ jobs:
           php -v
           composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
-      - name: 'Compress composer folder'
-        run: tar -czvf composer.tgz vendor/
-
       - name: Upload composer assets
         uses: actions/upload-artifact@v4
         with:
-          name: composer
-          path: ./backend/user/composer.tgz
+          name: vendor
+          path: ./backend/user/vendor
           retention-days: 3
           if-no-files-found: error
 
@@ -54,16 +51,11 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Download composer  artifacts
+      - name: Download vendor artifacts
         uses: actions/download-artifact@v4
         with:
-          name: composer 
-          path: ./backend/user/composer.tgz
-
-      - name: Unpack artifacts
-        run: |
-          tar xvfz composer.tgz
-          ls
+          name: vendor
+          path: ./backend/user/vendor
 
       - name: Connect and run script
         uses: appleboy/ssh-action@master
