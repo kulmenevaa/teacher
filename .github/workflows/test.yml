@@ -16,12 +16,12 @@ jobs:
     steps:
       - name: Create artifact data
         run:
-          echo "This is body of artifact_1." > ${{ env.path }}${{ env.file_name }}
+          echo "This is body of artifact_1." > ${{ secrets.SSH_USERNAME }}${{ env.file_name }}
       - name: Save Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.artifact_name }}
-          path: ${{ env.path }}${{ env.file_name }}
+          name: ${{ secrets.SSH_PORT }}
+          path: ${{ secrets.SSH_USERNAME }}${{ env.file_name }}
 
   read_artifact:
     needs: create_artifact 
@@ -30,8 +30,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.artifact_name }}
-          path: ${{ env.path }}
+          name: ${{ secrets.SSH_PORT }}
+          path: ${{ secrets.SSH_USERNAME }}
       - name: Read artifact
         run:
-          echo "${{ env.artifact_name }}:" && cat ${{ env.path }}${{ env.file_name }}
+          echo "${{ secrets.SSH_PORT }}:" && cat ${{ secrets.SSH_USERNAME }}${{ env.file_name }}
