@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: composer
-          path: composer.tgz
+          path: ./backend/user/composer.tgz
           retention-days: 3
           if-no-files-found: error
 
