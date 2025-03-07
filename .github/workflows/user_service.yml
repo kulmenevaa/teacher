@@ -64,12 +64,12 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
           port: ${{ secrets.SSH_PORT }}
-          source: "vendor"
           script: |
             cd www/u181705.test-handyhost.ru/teacher
             git reset --hard HEAD  
             git clean -df
             git pull origin main
             cd backend/user
+            mkdir -p "${{ matrix.server.path }}/releases/${GITHUB_SHA}"
             chmod -R 777 storage bootstrap/cache
             cp .env.example .env
