@@ -84,7 +84,7 @@ jobs:
 
       - name: Unpack artifacts
         run: |
-          tar xvfz ./backend/user/node_modules.tgz
+          tar xvfz node_modules.tgz
       - name: npm install
         run: |
           npm --version
