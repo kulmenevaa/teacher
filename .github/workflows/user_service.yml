@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: vendor
-          path: ./backend/user/vendor
+          #path: ./backend/user/vendor
 
       - name: Connect and run script
         uses: appleboy/ssh-action@master
