@@ -59,8 +59,10 @@ jobs:
 
       - name: TEST
         run: |
+          echo ${{ secrets.SSH_USERNAME }}
           echo ${{ matrix.server.path }}
           echo ${GITHUB_SHA}
+          echo mkdir -p "${{ matrix.server.path }}/releases/${GITHUB_SHA}"
 
       - name: Connect and run script
         uses: appleboy/ssh-action@master
