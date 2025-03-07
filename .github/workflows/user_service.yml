@@ -32,38 +32,12 @@ jobs:
         run: |
           php -v
           composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-      - name: 'Compress composer folder'
-        run: tar -czvf composer.tgz vendor/
 
       - name: Upload composer assets
         uses: actions/upload-artifact@v4
         with:
           name: composer
-          path: ./backend/user/composer.tgz
-          retention-days: 3
-          if-no-files-found: error
-
-  npm:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend/user
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-
-      - name: npm install
-        run: |
-          npm --version
-          npm install
-      #- name: 'Compress node_modules folder'
-        #run: tar -czvf node_modules.tgz node_modules/
-
-      - name: Upload node_modules assets
-        uses: actions/upload-artifact@v4
-        with:
-          name: node_modules
-          path: ./backend/user/node_modules
+          path: ./backend/user/vendor
           retention-days: 3
           if-no-files-found: error
 
@@ -72,32 +46,34 @@ jobs:
     defaults:
       run:
         working-directory: ./backend/user
-    needs: [composer, npm]
+    needs: [composer]
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Download npm artifacts
+      - name: Download composer artifacts
         uses: actions/download-artifact@v4
         with:
-          name: node_modules
-          path: ./backend/user/node_modules
+          name: composer
+          path: ./backend/user/vendor
 
-      # - name: Unpack artifacts
-      #   run: |
-      #     ls
-      #     tar xvfz node_modules.tgz
-      - name: Npm install
-        run: |
-          npm --version
-          npm run build
-      - name: 'Compress public folder'
-        run: tar -czvf public.tgz public/
-
-      - name: Upload public assets
-        uses: actions/upload-artifact@v4
+      - name: Connect and run script
+        uses: appleboy/ssh-action@master
         with:
-          name: public
-          path: ./backend/user/public.tgz
-          retention-days: 3
-          if-no-files-found: error
+          host: ${{ secrets.SSH_HOST }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd www/u181705.test-handyhost.ru/teacher
+            git reset --hard HEAD  
+            git clean -df
+            git pull origin main
+            cd backend/user
+            /opt/alt/php82/usr/bin/php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            /opt/alt/php82/usr/bin/php composer-setup.php
+            ./composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --ignore-platform-reqs
+            cp .env.example .env
+            /opt/alt/php82/usr/bin/php artisan optimize
+            chmod -R 777 storage bootstrap/cache
+            /opt/alt/php82/usr/bin/php artisan key:generate
