@@ -20,13 +20,13 @@ jobs:
         working-directory: ./backend/user
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Setup PHP with composer v2
-        uses: shivammathur/setup-php@v2
+      - name: Setup PHP with composer v4
+        uses: shivammathur/setup-php@v4
         with:
           php-version: '8.2'
-          tools: composer:v2
+          tools: composer:v4
 
       - name: Install composer packages
         run: |
@@ -73,7 +73,7 @@ jobs:
     needs: [composer, npm]
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Download npm artifacts
         uses: actions/download-artifact@v4
