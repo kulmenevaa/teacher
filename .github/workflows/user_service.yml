@@ -70,6 +70,6 @@ jobs:
             git clean -df
             git pull origin main
             cd backend/user
-            scp -r vendor ${{ secrets.SSH_USERNAME }}@host:./www/u181705.test-handyhost.ru/teacher
+            scp -r vendor ${{ secrets.SSH_USERNAME }}@{{ secrets.SSH_HOST }}:{{ secrets.SSH_PORT }}:./www/u181705.test-handyhost.ru/teacher
             chmod -R 777 storage bootstrap/cache
             cp .env.example .env
