@@ -84,8 +84,9 @@ jobs:
 
       - name: Unpack artifacts
         run: |
+          ls
           tar xvfz node_modules.tgz
-      - name: npm install
+      - name: Npm install
         run: |
           npm --version
           npm run production
@@ -96,5 +97,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: public
-          path: public.tgz
+          path: ./backend/user/public.tgz
           retention-days: 3
+          if-no-files-found: error
