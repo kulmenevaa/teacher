@@ -56,7 +56,7 @@ jobs:
           npm --version
           npm install
       - name: 'Compress node_modules folder'
-        run: ls && tar -czvf node_modules.tgz node_modules/
+        run: tar -czvf node_modules.tgz node_modules/ && ls
 
       - name: Upload node_modules assets
         uses: actions/upload-artifact@v4
