@@ -64,8 +64,6 @@ jobs:
       - name: Connect and run script
         uses: appleboy/ssh-action@master
         with:
-          local: vendor
-          remote: www/u181705.test-handyhost.ru/teacher/backend/user/vendor
           host: ${{ secrets.SSH_HOST }}
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -76,5 +74,6 @@ jobs:
             git clean -df
             git pull origin main
             cd backend/user
+            whoami
             chmod -R 777 storage bootstrap/cache
             cp .env.example .env
