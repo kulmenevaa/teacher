@@ -57,6 +57,11 @@ jobs:
           name: vendor
           path: ./backend/user/vendor
 
+      - name: TEST
+        run: |
+          echo ${{ matrix.server.path }}
+          echo ${GITHUB_SHA}
+
       - name: Connect and run script
         uses: appleboy/ssh-action@master
         with:
@@ -70,7 +75,5 @@ jobs:
             git clean -df
             git pull origin main
             cd backend/user
-            echo ${{ matrix.server.path }}
-            echo ${GITHUB_SHA}
             chmod -R 777 storage bootstrap/cache
             cp .env.example .env
