@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node_modules
-          path: node_modules.tgz
+          path: ./backend/user/node_modules.tgz
           retention-days: 3
           if-no-files-found: error
 
@@ -84,7 +84,7 @@ jobs:
 
       - name: Unpack artifacts
         run: |
-          tar xvfz node_modules.tgz
+          tar xvfz ./backend/user/node_modules.tgz
       - name: npm install
         run: |
           npm --version
