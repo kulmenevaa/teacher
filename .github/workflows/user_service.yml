@@ -36,7 +36,7 @@ jobs:
       - name: Upload composer assets
         uses: actions/upload-artifact@v4
         with:
-          name: composer
+          name: vendor
           path: ./backend/user/vendor
           retention-days: 3
           if-no-files-found: error
@@ -51,10 +51,10 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Download composer artifacts
+      - name: Download vendor artifacts
         uses: actions/download-artifact@v4
         with:
-          name: composer
+          name: vendor
           path: ./backend/user/vendor
 
       - name: Connect and run script
