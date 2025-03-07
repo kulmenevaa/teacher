@@ -70,10 +70,7 @@ jobs:
             git clean -df
             git pull origin main
             cd backend/user
-            /opt/alt/php82/usr/bin/php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-            /opt/alt/php82/usr/bin/php composer-setup.php
-            ./composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --ignore-platform-reqs
             cp .env.example .env
-            /opt/alt/php82/usr/bin/php artisan optimize
+            php artisan optimize
             chmod -R 777 storage bootstrap/cache
-            /opt/alt/php82/usr/bin/php artisan key:generate
+            php artisan key:generate
