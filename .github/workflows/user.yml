@@ -27,7 +27,6 @@ jobs:
             git clean -df
             git pull origin main
             cd backend/user
-            ls
             /opt/alt/php82/usr/bin/php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
             /opt/alt/php82/usr/bin/php composer-setup.php
             ./composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --ignore-platform-reqs
