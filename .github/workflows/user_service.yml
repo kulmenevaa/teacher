@@ -33,11 +33,14 @@ jobs:
           php -v
           composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
+      - name: 'Compress composer folder'
+        run: tar -czvf composer.tgz vendor/
+
       - name: Upload composer assets
         uses: actions/upload-artifact@v4
         with:
           name: vendor
-          path: ./backend/user/vendor
+          path: ./backend/user/composer.tgz
           retention-days: 3
           if-no-files-found: error
 
@@ -51,11 +54,16 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Download vendor artifacts
+      - name: Download composer  artifacts
         uses: actions/download-artifact@v4
         with:
-          name: vendor
-          path: ./backend/user/vendor
+          name: composer 
+          path: ./backend/user/composer.tgz
+
+      - name: Unpack artifacts
+        run: |
+          tar xvfz composer.tgz
+          ls
 
       - name: Connect and run script
         uses: appleboy/ssh-action@master
@@ -64,12 +72,12 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
           port: ${{ secrets.SSH_PORT }}
+          source: "test.tar"
           script: |
             cd www/u181705.test-handyhost.ru/teacher
             git reset --hard HEAD  
             git clean -df
             git pull origin main
             cd backend/user
-            scp -r vendor ${{ secrets.SSH_USERNAME }}@{{ secrets.SSH_HOST }}:./www/u181705.test-handyhost.ru/teacher
             chmod -R 777 storage bootstrap/cache
             cp .env.example .env
