@@ -64,7 +64,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           username: ${{ secrets.SSH_USERNAME }}
           port: ${{ secrets.SSH_PORT }}
-          source: "test.tar"
+          source: "vendor"
           script: |
             cd www/u181705.test-handyhost.ru/teacher
             git reset --hard HEAD  
