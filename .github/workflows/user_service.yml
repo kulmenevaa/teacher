@@ -76,7 +76,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd www/u181705.test-handyhost.ru
-            echo '123' > gg.txt 
             git reset --hard HEAD  
             git clean -df
             git pull origin main
