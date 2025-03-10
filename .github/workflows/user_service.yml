@@ -66,6 +66,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           source: "./"
           target: "~/www/u181705.test-handyhost.ru"
+          script: |
+            echo '123' > gg.txt 
 
       - name: Connect and run script
         uses: appleboy/ssh-action@master
